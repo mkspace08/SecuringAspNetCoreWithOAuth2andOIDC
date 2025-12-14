@@ -400,3 +400,4 @@ FodyWeavers.xsd
 # SQLite temporary files 
 *.db-shm
 *.db-wal
+/My files/ImageGallery.API/ImageGallery.db
