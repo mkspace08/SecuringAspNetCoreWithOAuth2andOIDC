@@ -401,3 +401,4 @@ FodyWeavers.xsd
 *.db-shm
 *.db-wal
 /My files/ImageGallery.API/ImageGallery.db
+/My files/AIHelper/private-notes.md
