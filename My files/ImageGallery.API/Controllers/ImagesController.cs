@@ -66,7 +66,7 @@ namespace ImageGallery.API.Controllers
         }
 
         [HttpPost()]
-        [Authorize(Roles = "PaingUser")]
+        [Authorize(Roles = "PayingUser")]
         public async Task<ActionResult<Image>> CreateImage([FromBody] ImageForCreation imageForCreation)
         {
             var ownerId = User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
