@@ -32,7 +32,7 @@ namespace ImageGallery.API.Controllers
         [HttpGet()]
         public async Task<ActionResult<IEnumerable<Image>>> GetImages()
         {
-            Debugger.Launch();
+            //Debugger.Launch();
             var ownerId = User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
 
             if (ownerId == null)
@@ -66,10 +66,19 @@ namespace ImageGallery.API.Controllers
         }
 
         [HttpPost()]
+        [Authorize(Roles = "PaingUser")]
         public async Task<ActionResult<Image>> CreateImage([FromBody] ImageForCreation imageForCreation)
         {
+            var ownerId = User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+
+            if (ownerId == null)
+            {
+                throw new InvalidOperationException("User identifier is missing");
+            }
+
             // Automapper maps only the Title in our configuration
             var imageEntity = _mapper.Map<Entities.Image>(imageForCreation);
+            imageEntity.OwnerId = ownerId;
 
             // Create an image from the passed-in bytes (Base64), and 
             // set the filename on the image
