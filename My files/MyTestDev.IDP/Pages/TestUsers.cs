@@ -32,14 +32,11 @@ public static class TestUsers
                     Password = "emma",
                     Claims =
                     {
-                        new Claim(JwtClaimTypes.Role,"FreeUser"),
+                        new Claim(JwtClaimTypes.Role,"PayingUser"),
                         new Claim(JwtClaimTypes.Name, "Emma Smith"),
                         new Claim(JwtClaimTypes.GivenName, "Emma"),
                         new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                        new Claim(JwtClaimTypes.Email, "EmmaSmith@email.com"),
-                        new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                        new Claim(JwtClaimTypes.WebSite, "http://emma.com"),
-                        new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)
+                        new Claim("country", "be"),
                     }
                 },
                 new TestUser
@@ -49,14 +46,11 @@ public static class TestUsers
                     Password = "david",
                     Claims =
                     {
-                        new Claim(JwtClaimTypes.Role,"PayingUser"),
+                        new Claim(JwtClaimTypes.Role,"FreeUser"),
                         new Claim(JwtClaimTypes.Name, "David Smith"),
                         new Claim(JwtClaimTypes.GivenName, "David"),
                         new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                        new Claim(JwtClaimTypes.Email, "DavidSmith@email.com"),
-                        new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                        new Claim(JwtClaimTypes.WebSite, "http://david.com"),
-                        new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)
+                        new Claim("country", "nl"),
                     }
                 }
             };

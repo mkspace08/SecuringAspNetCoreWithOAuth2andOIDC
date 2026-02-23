@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AIHelper", "AIHelper", "{02
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTestDev.IDP", "MyTestDev.IDP\MyTestDev.IDP.csproj", "{ED0537E0-3EF2-3FCF-0E4F-FCFE900AB23E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGallery.Authorization", "ImageGallery.Authorization\ImageGallery.Authorization.csproj", "{20CF810C-7725-4780-AD66-55953CB1ABEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{ED0537E0-3EF2-3FCF-0E4F-FCFE900AB23E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED0537E0-3EF2-3FCF-0E4F-FCFE900AB23E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED0537E0-3EF2-3FCF-0E4F-FCFE900AB23E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20CF810C-7725-4780-AD66-55953CB1ABEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20CF810C-7725-4780-AD66-55953CB1ABEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20CF810C-7725-4780-AD66-55953CB1ABEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20CF810C-7725-4780-AD66-55953CB1ABEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

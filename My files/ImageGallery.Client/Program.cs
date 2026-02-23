@@ -1,4 +1,5 @@
 using Duende.AccessTokenManagement.OpenIdConnect;
+using ImageGallery.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -56,12 +57,20 @@ builder.Services.AddAuthentication(options =>
     options.ClaimActions.DeleteClaim("idp"); //removes the "idp" (identity provider) claim from the user's claims collection after mapping, keeping the cookie smaller.
     options.Scope.Add("roles");
     options.Scope.Add("imagegalleryapi.fullaccess");
+    options.Scope.Add("country");
     options.ClaimActions.MapJsonKey("role", "role");
+    options.ClaimActions.MapUniqueJsonKey("country", "country");
     options.TokenValidationParameters = new()
     {
         NameClaimType = "given_name",
         RoleClaimType = "role",
     };
+});
+
+builder.Services.AddAuthorization(authorizationOptions =>
+{
+    authorizationOptions.AddPolicy("UserCanAddImage",
+        AuthorizationPolicies.CanAddImage());
 });
 
 var app = builder.Build();
