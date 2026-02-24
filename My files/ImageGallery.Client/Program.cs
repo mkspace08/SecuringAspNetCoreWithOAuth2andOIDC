@@ -56,7 +56,8 @@ builder.Services.AddAuthentication(options =>
     options.ClaimActions.DeleteClaim("sid"); //removes the "sid" (session id) claim from the user's claims collection after mapping, keeping the cookie smaller.
     options.ClaimActions.DeleteClaim("idp"); //removes the "idp" (identity provider) claim from the user's claims collection after mapping, keeping the cookie smaller.
     options.Scope.Add("roles");
-    options.Scope.Add("imagegalleryapi.fullaccess");
+    options.Scope.Add("imagegalleryapi.read");
+    options.Scope.Add("imagegalleryapi.write");
     options.Scope.Add("country");
     options.ClaimActions.MapJsonKey("role", "role");
     options.ClaimActions.MapUniqueJsonKey("country", "country");
