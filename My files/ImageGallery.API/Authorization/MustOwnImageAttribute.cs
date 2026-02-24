@@ -2,12 +2,11 @@
 
 namespace ImageGallery.API.Authorization
 {
-    //not used now
-    //public class MustOwnImageAttribute : AuthorizeAttribute, IAuthorizationRequirementData
-    //{
-    //    public IEnumerable<IAuthorizationRequirement> GetRequirements()
-    //    {
-    //        return new[] { new MustOwnImageRequirement() };
-    //    }
-    //}
+    public class MustOwnImageAttribute : AuthorizeAttribute, IAuthorizationRequirementData
+    {
+        public IEnumerable<IAuthorizationRequirement> GetRequirements()
+        {
+            return new[] { new MustOwnImageRequirement() };
+        }
+    }
 }
