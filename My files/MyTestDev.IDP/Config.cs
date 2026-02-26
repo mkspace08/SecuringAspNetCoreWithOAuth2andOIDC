@@ -37,7 +37,7 @@ public static class Config
                 Scopes = { "imagegalleryapi.read", "imagegalleryapi.write" },
 
                 // Secret used by the API when calling the introspection endpoint.
-                ApiSecrets = { new Secret("apisecret".Sha256()) }
+                //ApiSecrets = { new Secret("apisecret".Sha256()) }
             }
         };
 
@@ -99,7 +99,8 @@ public static class Config
 
                     // Issue opaque (reference) access tokens instead of JWTs.
                     // (Used for testing token introspection at the API.)
-                    AccessTokenType = AccessTokenType.Reference,
+                    //AccessTokenType = AccessTokenType.Reference,
+                    AccessTokenType = AccessTokenType.Jwt,
 
                     AllowOfflineAccess = true, // Enable refresh tokens
                 }

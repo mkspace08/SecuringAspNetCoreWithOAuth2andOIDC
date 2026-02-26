@@ -19,54 +19,54 @@ namespace ImageGallery.Client.Controllers
 
         public async Task Logout()
         {
-            var idpClient = _httpClientFactory.CreateClient("IDPClient");
+            //uncomment for tokens revokation test
+            //var idpClient = _httpClientFactory.CreateClient("IDPClient");
 
-            var discoveryDocumentResponse = await idpClient.GetDiscoveryDocumentAsync();
-            if (discoveryDocumentResponse.IsError)
-            {
-                throw new Exception(discoveryDocumentResponse.Error);
-            }
+            //var discoveryDocumentResponse = await idpClient.GetDiscoveryDocumentAsync();
+            //if (discoveryDocumentResponse.IsError)
+            //{
+            //    throw new Exception(discoveryDocumentResponse.Error);
+            //}
 
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
-            if (!string.IsNullOrWhiteSpace(accessToken))
-            {
-                var revokeAccessTokenResponse = await idpClient.RevokeTokenAsync(new TokenRevocationRequest
-                {
-                    Address = discoveryDocumentResponse.RevocationEndpoint,
-                    ClientId = "imagegalleryclient",
-                    ClientSecret = "ClientSecret123",
-                    Token = accessToken
-                });
+            //var accessToken = await HttpContext.GetTokenAsync("access_token");
+            //if (!string.IsNullOrWhiteSpace(accessToken))
+            //{
+            //    var revokeAccessTokenResponse = await idpClient.RevokeTokenAsync(new TokenRevocationRequest
+            //    {
+            //        Address = discoveryDocumentResponse.RevocationEndpoint,
+            //        ClientId = "imagegalleryclient",
+            //        ClientSecret = "ClientSecret123",
+            //        Token = accessToken
+            //    });
 
-                if (revokeAccessTokenResponse.IsError)
-                {
-                    throw new Exception(revokeAccessTokenResponse.Error);
-                }
-            }
+            //    if (revokeAccessTokenResponse.IsError)
+            //    {
+            //        throw new Exception(revokeAccessTokenResponse.Error);
+            //    }
+            //}
 
-            var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
-            if (!string.IsNullOrWhiteSpace(refreshToken))
-            {
-                var revokeRefreshTokenResponse = await idpClient.RevokeTokenAsync(new TokenRevocationRequest
-                {
-                    Address = discoveryDocumentResponse.RevocationEndpoint,
-                    ClientId = "imagegalleryclient",
-                    ClientSecret = "ClientSecret123",
-                    Token = refreshToken
-                });
+            //var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
+            //if (!string.IsNullOrWhiteSpace(refreshToken))
+            //{
+            //    var revokeRefreshTokenResponse = await idpClient.RevokeTokenAsync(new TokenRevocationRequest
+            //    {
+            //        Address = discoveryDocumentResponse.RevocationEndpoint,
+            //        ClientId = "imagegalleryclient",
+            //        ClientSecret = "ClientSecret123",
+            //        Token = refreshToken
+            //    });
 
-                if (revokeRefreshTokenResponse.IsError)
-                {
-                    throw new Exception(revokeRefreshTokenResponse.Error);
-                }
-            }
+            //    if (revokeRefreshTokenResponse.IsError)
+            //    {
+            //        throw new Exception(revokeRefreshTokenResponse.Error);
+            //    }
+            //}
 
-            //comented only for revocation test
-            //// Clears the local cookie, this logouts only from the client
-            //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            // Clears the local cookie, this logouts only from the client
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            //// Redirects to the IdP to clear its own session/cookie
-            //await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+            // Redirects to the IdP to clear its own session/cookie
+            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
 
         [AllowAnonymous]
