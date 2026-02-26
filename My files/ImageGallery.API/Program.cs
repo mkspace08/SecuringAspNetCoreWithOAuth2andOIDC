@@ -30,17 +30,38 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
+// =========================
+// AuthN: JWT access tokens
+// =========================
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        options.Authority = "https://localhost:5001"; // IDP address
+//        options.Audience = "imagegalleryapi";
+//        options.TokenValidationParameters = new()
+//        {
+//            NameClaimType = "given_name",
+//            RoleClaimType = "role",
+//            ValidTypes = new[] { "at+jwt" }
+//        };
+//    });
+
+// ======================================
+// AuthN: Reference (opaque) access tokens
+// ======================================
+// Uses token introspection endpoint on the IDP.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+    .AddOAuth2Introspection(options =>
     {
         options.Authority = "https://localhost:5001"; // IDP address
-        options.Audience = "imagegalleryapi";
-        options.TokenValidationParameters = new()
-        {
-            NameClaimType = "given_name",
-            RoleClaimType = "role",
-            ValidTypes = new[] { "at+jwt" }
-        };
+
+        // The API resource name + secret configured in the IDP (
+        // Config.ApiResources["imagegalleryapi"].ApiSecrets).
+        options.ClientId = "imagegalleryapi";
+        options.ClientSecret = "apisecret";
+
+        options.NameClaimType = "given_name";
+        options.RoleClaimType = "role";
     });
 
 builder.Services.AddAuthorization(authorizationOptions =>

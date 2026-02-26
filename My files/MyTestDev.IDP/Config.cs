@@ -35,6 +35,9 @@ public static class Config
             {
                 // Scopes define the operations/permissions available for this API.
                 Scopes = { "imagegalleryapi.read", "imagegalleryapi.write" },
+
+                // Secret used by the API when calling the introspection endpoint.
+                ApiSecrets = { new Secret("apisecret".Sha256()) }
             }
         };
 
@@ -84,6 +87,7 @@ public static class Config
                         "imagegalleryapi.read",                         // API read permission
                         "imagegalleryapi.write",                        // API write permission
                         "country",                                      // Custom identity resource
+                        IdentityServerConstants.StandardScopes.OfflineAccess // <-- Add this
                     },
                     // Secret used for client authentication (should be stored securely in production).
                     ClientSecrets =
@@ -92,6 +96,12 @@ public static class Config
                     },
                     // If true, users will be prompted for consent when logging in.
                     RequireConsent = true,
+
+                    // Issue opaque (reference) access tokens instead of JWTs.
+                    // (Used for testing token introspection at the API.)
+                    AccessTokenType = AccessTokenType.Reference,
+
+                    AllowOfflineAccess = true, // Enable refresh tokens
                 }
             };
 }
