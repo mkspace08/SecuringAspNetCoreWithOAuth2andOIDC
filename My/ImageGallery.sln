@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31919.166
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11519.219
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGallery.Client", "ImageGallery.Client\ImageGallery.Client.csproj", "{6099AF9E-B3E3-4676-A858-D59935D5330F}"
 EndProject
@@ -17,6 +17,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTestDev.IDP", "MyTestDev.IDP\MyTestDev.IDP.csproj", "{ED0537E0-3EF2-3FCF-0E4F-FCFE900AB23E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGallery.Authorization", "ImageGallery.Authorization\ImageGallery.Authorization.csproj", "{20CF810C-7725-4780-AD66-55953CB1ABEE}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "imagegallery.bff.client", "imagegallery.bff.client\imagegallery.bff.client.esproj", "{AF9B2F6E-BFEC-E052-AF4B-23856C77007A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGallery.Bff.Server", "ImageGallery.Bff.Server\ImageGallery.Bff.Server.csproj", "{0DCEC382-F082-4B20-DA18-B2629783750D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +48,16 @@ Global
 		{20CF810C-7725-4780-AD66-55953CB1ABEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20CF810C-7725-4780-AD66-55953CB1ABEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20CF810C-7725-4780-AD66-55953CB1ABEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF9B2F6E-BFEC-E052-AF4B-23856C77007A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF9B2F6E-BFEC-E052-AF4B-23856C77007A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF9B2F6E-BFEC-E052-AF4B-23856C77007A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AF9B2F6E-BFEC-E052-AF4B-23856C77007A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF9B2F6E-BFEC-E052-AF4B-23856C77007A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF9B2F6E-BFEC-E052-AF4B-23856C77007A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0DCEC382-F082-4B20-DA18-B2629783750D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DCEC382-F082-4B20-DA18-B2629783750D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DCEC382-F082-4B20-DA18-B2629783750D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DCEC382-F082-4B20-DA18-B2629783750D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

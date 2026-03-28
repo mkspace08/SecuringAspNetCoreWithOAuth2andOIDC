@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="imagegallery.bffclient.client/imagegallery.bffclient.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="ImageGallery.BffClient.Server/ImageGallery.BffClient.Server.csproj" />
+</Solution>

@@ -1,0 +1,6 @@
+@ImageGallery.BffClient.Server_HostAddress = http://localhost:5083
+
+GET {{ImageGallery.BffClient.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
