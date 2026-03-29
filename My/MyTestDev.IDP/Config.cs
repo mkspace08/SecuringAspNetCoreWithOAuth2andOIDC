@@ -103,6 +103,39 @@ public static class Config
                     AccessTokenType = AccessTokenType.Jwt,
 
                     AllowOfflineAccess = true, // Enable refresh tokens
+                },
+                new Client()
+                {
+                    ClientName = "Image Gallery BFF",
+                    ClientId = "imagegallerybff",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    AlwaysIncludeUserClaimsInIdToken = false,
+                    RedirectUris =
+                    {
+                        "https://localhost:57238/signin-oidc"
+                    },
+                    PostLogoutRedirectUris =
+                    {
+                        "https://localhost:57238/"
+                    },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "roles",
+                        "imagegalleryapi.read",
+                        "imagegalleryapi.write",
+                        "country",
+                        IdentityServerConstants.StandardScopes.OfflineAccess
+                    },
+                    ClientSecrets =
+                    {
+                        new Secret("anothersecret".Sha256())
+                    },
+                    RequireConsent = true,
+                    AccessTokenType = AccessTokenType.Jwt,
+                    AllowOfflineAccess = true,
                 }
             };
 }

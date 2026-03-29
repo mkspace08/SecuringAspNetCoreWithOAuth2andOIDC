@@ -7,6 +7,9 @@ const PROXY_CONFIG = [
   {
     context: [
       "/weatherforecast",
+      "/signin-oidc",
+      "/bff",
+      "/bff/*"
     ],
     target,
     secure: false
