@@ -117,7 +117,7 @@ public static class Config
                     },
                     PostLogoutRedirectUris =
                     {
-                        "https://localhost:57238/"
+                        "https://localhost:57238/signout-callback-oidc"
                     },
                     AllowedScopes =
                     {

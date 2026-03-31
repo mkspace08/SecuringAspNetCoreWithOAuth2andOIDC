@@ -9,6 +9,8 @@ using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//const string bffCookieScheme = "BFFCookieScheme";
+//const string bffChallengeScheme = "BFFChallengeScheme";
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -16,54 +18,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddBff()
-    .AddRemoteApis();
-
 JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-const string bffCookieScheme = "BFFCookieScheme";
-const string bffChallengeScheme = "BFFChallengeScheme";
-
-builder.Services
-    .AddAuthentication(options =>
+builder.Services.AddBff()
+    .AddRemoteApis()
+    .ConfigureOpenIdConnect(options =>
     {
-        options.DefaultScheme = bffCookieScheme;
-        options.DefaultChallengeScheme = bffChallengeScheme;
-    })
-    .AddCookie(bffCookieScheme, options =>
-    {
-        options.Cookie.Name = "__Host-ImageGalleryBff";
-        options.Cookie.HttpOnly = true;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.Cookie.SameSite = SameSiteMode.Lax;
-        options.Events = new CookieAuthenticationEvents
-        {
-            OnSigningIn = context =>
-            {
-                var loggerFactory = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
-                var logger = loggerFactory.CreateLogger("CookieAuth");
-
-                if (context?.Principal == null)
-                {
-                    logger.LogInformation($"[{DateTimeOffset.Now}] missing context?.Principal");
-                    
-                    return Task.CompletedTask;
-                }
-
-                // Log to console or debug output
-                logger.LogInformation($"[{DateTimeOffset.Now}] Cookie will contain these claims:");
-                foreach (var claim in context.Principal.Claims)
-                {
-                    logger.LogInformation($"[{DateTimeOffset.Now}] - claim: {claim.Type}: {claim.Value}");
-                }
-
-                return Task.CompletedTask;
-            }
-        };
-    })
-    .AddOpenIdConnect(bffChallengeScheme, options =>
-    {
-        options.SignInScheme = bffCookieScheme;
+        //options.SignInScheme = bffCookieScheme;
+        //options.SignOutScheme = bffCookieScheme;
         options.Authority = "https://localhost:5001/";
         options.ClientId = "imagegallerybff";
         options.ClientSecret = "anothersecret";
@@ -83,6 +45,36 @@ builder.Services
         {
             NameClaimType = "given_name",
             RoleClaimType = "role",
+        };
+    }).ConfigureCookies(options =>
+    {
+        options.Cookie.Name = "__Host-ImageGalleryBff";
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.SameSite = SameSiteMode.Lax;
+        options.Events = new CookieAuthenticationEvents
+        {
+            OnSigningIn = context =>
+            {
+                var loggerFactory = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
+                var logger = loggerFactory.CreateLogger("CookieAuth");
+
+                if (context?.Principal == null)
+                {
+                    logger.LogInformation($"[{DateTimeOffset.Now}] missing context?.Principal");
+
+                    return Task.CompletedTask;
+                }
+
+                // Log to console or debug output
+                logger.LogInformation($"[{DateTimeOffset.Now}] Cookie will contain these claims:");
+                foreach (var claim in context.Principal.Claims)
+                {
+                    logger.LogInformation($"[{DateTimeOffset.Now}] - claim: {claim.Type}: {claim.Value}");
+                }
+
+                return Task.CompletedTask;
+            }
         };
     });
 
@@ -118,9 +110,8 @@ app.MapRemoteBffApiEndpoint("/bff/images", new Uri("https://localhost:7075/api/i
 app.MapGet("/bff/logged-user", [Authorize] (HttpContext context) =>
 {
     var name = context.User.Identity?.Name ?? "";
-    // Or get a specific claim, e.g. given_name:
-    // var name = context.User.FindFirst("given_name")?.Value ?? "";
-    return Results.Json(new { name });
+    var sid = context.User.FindFirst("sid")?.Value ?? "";
+    return Results.Json(new { name, sid });
 });
 
 app.MapFallbackToFile("/index.html");

@@ -12,6 +12,7 @@ import { LoggedUser } from './LoggedUser';
 export class App implements OnInit {
   protected readonly images = signal<Image[]>([]);
   protected readonly loggedUserName = signal<string | undefined>(undefined);
+  protected readonly sessionId = signal<string | undefined>(undefined);
   protected readonly isLoggedIn = computed(() => !!this.loggedUserName());
 
   constructor(private http: HttpClient) {
@@ -60,7 +61,8 @@ export class App implements OnInit {
   }
 
   logout() {
-    window.location.href = '/bff/logout';
+    const sid = this.sessionId();
+    window.location.href = sid ? `/bff/logout?sid=${sid}` : '/bff/logout';
   }
 
   checkLogin() {
@@ -70,6 +72,7 @@ export class App implements OnInit {
         next: (user) => {
           console.log('Logged user:', user);
           this.loggedUserName.set(user.name);
+          this.sessionId.set(user.sid);
         },
         error: (error: HttpErrorResponse) => {
           this.loggedUserName.set(undefined);
